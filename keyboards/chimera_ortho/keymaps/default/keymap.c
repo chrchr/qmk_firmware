@@ -12,9 +12,32 @@ enum chimera_ortho_layers {
   _CAPS,
   _NUMPAD,
   _SYMBOLS,
-  _MACROS,
+  _MOUSE,
   _NAV
 };
+
+enum combos {
+  DF_LCTRL,
+  JK_RCTRL,
+  SD_LALT,
+  KL_RALT
+};
+
+
+//const uint16_t PROGMEM test_combo[] = {KC_A, KC_B, COMBO_END};
+//combo_t key_combos[COMBO_COUNT] = {COMBO(test_combo, KC_ESC)};
+
+/* const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END}; */
+/* const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END}; */
+/* const uint16_t PROGMEM sd_combo[] = {KC_S, KC_D, COMBO_END}; */
+// const uint16_t PROGMEM kl_combo[] = {KC_K, KC_L, COMBO_END};
+
+//combo_t key_combos[COMBO_COUNT] = {
+//[DF_LCTRL] = COMBO(df_combo, KC_LCTL),
+//[JK_RCTRL] = COMBO(jk_combo, KC_RCTL)
+  //[SD_LALT] = COMBO(sd_combo, KC_LALT),
+  //[KL_RALT] = COMBO(kl_combo, KC_RALT)
+//};
 
 #define KC_NMPD TG(_NUMPAD)
 #define KC_SYMB TG(_SYMBOLS)
@@ -23,28 +46,23 @@ enum chimera_ortho_layers {
 #define KC_SCTR MT(MOD_LCTL, KC_RBRC)
 #define KC_SPLT MT(MOD_LALT, KC_MINS)
 #define KC_SPRT MT(MOD_LALT, KC_1)
-#define KC_GBRC MT(MOD_RGUI, KC_8)
+#define KC_GBRC MT(MOD_RGUI, KC_BSLS)
 #define KC_GQOT MT(MOD_LGUI, KC_QUOT)
-#define KC_MESC LT(_MACROS, KC_ESC)
+#define KC_MTAB LT(_MOUSE, KC_TAB)
 #define KC_CAD LALT(LCTL(KC_DEL))
 
-enum custom_keycodes {
-  KC_INCL = SAFE_RANGE,
-  KC_PULL,
-  KC_PUSH,
-  KC_SCAP,
-  KC_SCOF
-};
+#define KC_DCTL MT(MOD_LCTL, KC_D)
+#define KC_KCTL MT(MOD_RCTL, KC_K)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT(
   //,-------+-------+-------+-------+-------+-------+-------.     ,-------+-------+-------+-------+-------+-------+-------.
-     KC_MESC, KC_Q  , KC_W  , KC_E  , KC_R  , KC_T  ,KC_SCTL,      KC_SCTR, KC_Y  , KC_U  , KC_I  , KC_O  , KC_P  ,KC_QUOT,
+     KC_ESC, KC_Q  , KC_W  , KC_E  , KC_R  , KC_T  ,KC_SCTL,      KC_SCTR, KC_Y  , KC_U  , KC_I  , KC_O  , KC_P  ,KC_QUOT,
   //|-------+-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------+-------|
-     KC_TAB , KC_A  , KC_S  , KC_D  , KC_F  , KC_G  ,KC_SPLT,      KC_SPRT, KC_H  , KC_J  , KC_K  , KC_L  ,KC_SCLN,KC_ENT ,
+     KC_MTAB , KC_A  , KC_S  , KC_D  , KC_F  ,KC_G ,KC_SPLT,      KC_SPRT, KC_H , KC_J  , KC_K  , KC_L  ,KC_SCLN,KC_ENT,
   //|-------+-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------+-------|
-     KC_LSPO, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  ,KC_SPFN,      KC_GBRC, KC_N  , KC_M  ,KC_COMM,KC_DOT ,KC_SLSH,KC_RSPC,
+     KC_LSPO, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B ,KC_SPFN,      KC_GBRC, KC_N  , KC_M  ,KC_COMM,KC_DOT ,KC_SLSH,KC_RSPC,
   //|-------+-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------+-------|
                                      KC_NMPD,KC_BSPC,                      KC_SPC ,KC_SYMB
   // \------------------------------+-------+-------+------/       \------+-------+-------+------------------------------/
@@ -56,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-------+-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------+-------|
      _______,_______,_______,_______,_______,_______,KC_UNDS,      _______,_______,_______,_______,_______,KC_COLN,_______,
   //|-------+-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------+-------|
-     KC_SCOF,_______,_______,_______,_______,_______,_______,      _______,_______,_______,_______,_______,_______,KC_SCOF,
+     _______,_______,_______,_______,_______,_______,_______,      _______,_______,_______,_______,_______,_______,_______,
   //|-------+-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------+-------|
                                      _______,_______,                      _______,_______
   // \------------------------------+-------+-------+------/       \------+-------+-------+------------------------------/
@@ -66,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-------+-------+-------+-------+-------+-------+-------.     ,-------+-------+-------+-------+-------+-------+-------.
      _______,_______,KC_COLN,_______,_______,_______,_______,      _______,_______, KC_7  , KC_8  , KC_9  ,KC_ASTR,KC_MINS,
   //|-------+-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------+-------|
-     _______,_______,KC_DOT ,_______,_______,_______,_______,      _______,_______, KC_4  , KC_5  , KC_6  ,KC_PLUS,_______,
+     _______,KC_COMM,KC_DOT ,_______,_______,_______,_______,      _______,_______, KC_4  , KC_5  , KC_6  ,KC_PLUS,_______,
   //|-------+-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------+-------|
      _______,_______,_______,_______,_______,_______,_______,      _______,_______, KC_1  , KC_2  , KC_3  ,KC_SLSH,_______,
   //|-------+-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------+-------|
@@ -98,55 +116,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // \------------------------------+-------+-------+------/       \------+-------+-------+------------------------------/
   ),
 
-  [_MACROS] = LAYOUT(
+  [_MOUSE] = LAYOUT(
   //,-------+-------+-------+-------+-------+-------+-------.     ,-------+-------+-------+-------+-------+-------+-------.
-     _______,_______,_______,_______,_______,_______,_______,      _______,_______,_______,KC_INCL,_______,_______,_______,
+     _______,_______,_______,_______,_______,_______,_______,      _______,_______,_______,KC_MS_U,_______,_______,_______,
   //|-------+-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------+-------|
-     _______,_______,_______,KC_CAD ,_______,_______,_______,      _______,_______,_______,_______,_______,_______,_______,
+     _______,_______,_______,_______,_______,_______,_______,      _______,_______,KC_MS_L,KC_MS_D,KC_MS_R,_______,_______,
   //|-------+-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------+-------|
-     KC_SCAP,_______,_______,_______,_______,_______,_______,      _______,_______,_______,KC_PULL,KC_PUSH,_______,KC_SCAP,
+     _______,_______,_______,_______,_______,_______,_______,      _______,_______,KC_WH_U,KC_WH_D,_______,_______,_______,
   //|-------+-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------+-------|
-                                     _______,_______,                      _______,_______
+                                     _______,_______,                      KC_BTN1,KC_BTN2
   // \------------------------------+-------+-------+------/       \------+-------+-------+------------------------------/
   )
 
-};
-
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch(keycode) {
-    /* include some kind of library or header */
-    case KC_INCL:
-      if (record->event.pressed) {
-        SEND_STRING("#include <>" SS_TAP(X_LEFT));
-      }
-      return false;
-    case KC_PULL:
-      if (record->event.pressed) {
-        SEND_STRING("git pull" SS_TAP(X_ENTER));
-      }
-      return false;
-    case KC_PUSH:
-      if (record->event.pressed){
-        SEND_STRING("git push" SS_TAP(X_ENTER));
-      }
-      return false;
-    case KC_SCAP:
-      if (record->event.pressed){
-        layer_on(_CAPS);
-        register_code(KC_CAPSLOCK);
-        unregister_code(KC_CAPSLOCK);
-      }
-      return false;
-    case KC_SCOF:
-      if (record->event.pressed){
-        layer_off(_CAPS);
-        register_code(KC_CAPSLOCK);
-        unregister_code(KC_CAPSLOCK);
-      }
-      return false;
-  }
-  return true;
 };
 
 
@@ -169,7 +150,7 @@ void matrix_scan_user(void) {
         case _NAV:
       set_led_magenta;
       break;
-        case _MACROS:
+        case _MOUSE:
       set_led_cyan;
       break;
        default:
